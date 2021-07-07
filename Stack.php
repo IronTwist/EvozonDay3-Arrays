@@ -1,6 +1,8 @@
 <?php
 
-interface Stack{
+echo 'Stack: ';
+
+interface StackInterface{
     /**
      * @param $element
      */
@@ -19,7 +21,7 @@ interface Stack{
     public function show(): void;
 }
 
-class StackImplementation implements Stack{
+class Stack implements StackInterface {
 
     /**
      * @var array
@@ -54,15 +56,15 @@ class StackImplementation implements Stack{
     }
 }
 
-$stack = new StackImplementation();
+$stack = new Stack();
 $stack->push(2);
 $stack->push(4);
 $stack->push(3);
 $stack->pop();
-$stack->push(2);
+$stack->push(1);
 $stack->pop();
 $stack->pop();
-$stack->push(45);
+$stack->push(21);
 $stack->push(45);
 $stack->pop();
 
