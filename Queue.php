@@ -10,7 +10,7 @@ interface Queue{
 
 class QueueImplementation implements Queue{
 
-    private $data;
+    private array $data;
 
     public function __construct()
     {
@@ -45,7 +45,40 @@ class QueueImplementation implements Queue{
 
 }
 
-$q = new QueueImplementation();
+//Second implementation
+
+class QueueImplementation2 implements Queue {
+
+    public array $data = array();
+
+    public function enqueue($elem): void
+    {
+        $this->data[] = $elem;
+    }
+
+    public function dequeue(): void
+    {
+         $arrayAfter = array_slice($this->data, 1);
+         $this->data = $arrayAfter;
+    }
+
+    public function isEmpty(): bool
+    {
+        return count($this->data) == 0;
+    }
+
+   public function show(): void
+    {
+        if(!$this->isEmpty()) {
+            foreach ($this->data as $elem){
+                echo $elem . ' ';
+            }
+        }
+    }
+
+}
+
+$q = new QueueImplementation2();
 $q->enqueue("a");
 $q->enqueue("x");
 $q->enqueue("y");
@@ -54,3 +87,6 @@ $q->enqueue("2");
 $q->dequeue();
 
 $q->show();
+
+
+
