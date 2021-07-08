@@ -58,8 +58,10 @@ class QueueImplementation2 implements Queue {
 
     public function dequeue(): void
     {
-         $arrayAfter = array_slice($this->data, 1);
-         $this->data = $arrayAfter;
+        if(!$this->isEmpty()) {
+            $arrayAfter = array_slice($this->data, 1);
+            $this->data = $arrayAfter;
+        }
     }
 
     public function isEmpty(): bool
