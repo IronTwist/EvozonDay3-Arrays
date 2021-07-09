@@ -28,7 +28,7 @@ function consumerIterable(iterable $iterable): array
 
 }
 
-$numbersToReturn = 100;
+$numbersToReturn = 100; //1000, 2342345 or PHP_INT_MAX
 
 $get = consumerIterable(randomNumbersGenerator($numbersToReturn));
 print_r($get);
