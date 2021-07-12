@@ -1,14 +1,9 @@
 <?php
 echo "Queue test: ";
 
-interface Queue{
-    public function enqueue($elem): void;
-    public function dequeue(): void;
-    public function isEmpty(): bool;
-    public function show(): void;
-}
+require_once 'QueueInterface.php';
 
-class QueueImplementation implements Queue{
+class QueueImplementation implements QueueInterface, IteratorAggregate {
 
     private array $data;
 
@@ -22,32 +17,29 @@ class QueueImplementation implements Queue{
         array_push($this->data, $elem);
     }
 
-    public function dequeue():void
+    public function dequeue()
     {
         if(!$this->isEmpty()){
-            array_shift($this->data);
+            return array_shift($this->data);
         }
+
+        return null;
     }
 
     public function isEmpty():bool
     {
-        return count($this->data) == 0;
+        return empty($this->data);
     }
 
-    public function show(): void
+    public function getIterator(): ArrayIterator
     {
-        if(!$this->isEmpty()) {
-            foreach ($this->data as $elem){
-                echo $elem . ' ';
-            }
-        }
+        return new ArrayIterator($this->data);
     }
-
 }
 
 //Second implementation
 
-class QueueImplementation2 implements Queue {
+class QueueImplementation2 implements QueueInterface, IteratorAggregate {
 
     public array $data = array();
 
@@ -56,39 +48,43 @@ class QueueImplementation2 implements Queue {
         $this->data[] = $elem;
     }
 
-    public function dequeue(): void
+    public function dequeue()
     {
         if(!$this->isEmpty()) {
+            $elem = $this->data[0];
+
             $arrayAfter = array_slice($this->data, 1);
             $this->data = $arrayAfter;
+
+            return $elem;
         }
+
+        return null;
     }
 
     public function isEmpty(): bool
     {
-        return count($this->data) == 0;
+        return empty($this->data);
     }
 
-   public function show(): void
+    public function getIterator(): ArrayIterator
     {
-        if(!$this->isEmpty()) {
-            foreach ($this->data as $elem){
-                echo $elem . ' ';
-            }
-        }
+        return new ArrayIterator($this->data);
     }
 
 }
 
-$q = new QueueImplementation2();
+$q = new QueueImplementation();
 $q->enqueue("a");
 $q->enqueue("x");
 $q->enqueue("y");
 $q->dequeue();
-$q->enqueue("2");
+$q->enqueue("3");
 $q->dequeue();
 
-$q->show();
+foreach ($q as $qShow){
+    echo $qShow. ' ';
+}
 
 
 
