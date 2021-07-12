@@ -1,22 +1,22 @@
 <?php
 
-function randomNumbersGenerator($numbersReturn): iterable
+function randomNumbersGenerator($numberGiven): iterable
 {
     $x = 0;
     $holdNumber = 0;
 
-    while($x <= $numbersReturn){
-        if($x > $holdNumber && ($x - $holdNumber) <= 10){
+    while($x <= $numberGiven){
+        if($x > $holdNumber-1 && ($x - $holdNumber) <= 10){
             yield $x;
             $holdNumber = $x;
         }
 
-        if($x >= $numbersReturn - 1){
+        if($x >= $numberGiven - 1){
             yield $x;
             break;
         }
 
-        $x = mt_rand(1, $numbersReturn);
+        $x = random_int(1, $numberGiven);
     }
 }
 
@@ -31,5 +31,4 @@ function consumerIterable(iterable $iterable)
 
 $numbersToReturn = 100; //1000, 2342345 or PHP_INT_MAX
 
-$get = consumerIterable(randomNumbersGenerator($numbersToReturn));
-print_r($get);
+consumerIterable(randomNumbersGenerator($numbersToReturn));
