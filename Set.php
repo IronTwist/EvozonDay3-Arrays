@@ -6,18 +6,17 @@ interface SetInterface{
     public function intersect(SetInterface $set): SetInterface;
     public function reunion(SetInterface  $set): SetInterface;
     public function isEmpty(): bool;
-    public function show(): void;
 }
 
 class Set implements SetInterface{
 
-    public $data = array();
+    public $data = [];
 
     public function add($element): void
     {
         $checkSet = $this->contains($element);
 
-        if($checkSet == false){
+        if($checkSet === false){
             $this->data[] = $element;
         }
     }
@@ -46,20 +45,9 @@ class Set implements SetInterface{
 
     public function isEmpty(): bool
     {
-        return $this->data == 0;
+        return empty($this->data);
     }
 
-    public function show(): void
-    {
-        echo $this->isEmpty();
-        if(!$this->isEmpty()) {
-            foreach ($this->data as $elem){
-                echo $elem . ' ';
-            }
-            echo PHP_EOL;
-            var_dump($this->data);
-        }
-    }
 
 }
 $set = new Set();
@@ -67,13 +55,11 @@ $set = new Set();
 $set->add(4);
 $set->add(2);
 $set->add(1);
-$set->show();
 
 $set2 = new Set();
 $set2->add(3);
 $set2->add(2);
 $set2->add(4);
-$set2->show();
 
 echo "Intersection: ";
 $intersection = $set2->intersect($set);
