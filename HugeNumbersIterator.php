@@ -12,14 +12,15 @@ function randomNumbersGenerator($numbersReturn): iterable
         }
 
         if($x >= $numbersReturn - 1){
-            exit();
+            yield $x;
+            break;
         }
 
         $x = mt_rand(1, $numbersReturn);
     }
 }
 
-function consumerIterable(iterable $iterable): array
+function consumerIterable(iterable $iterable)
 {
 
     foreach ($iterable as $valueIterable) {
