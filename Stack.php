@@ -18,7 +18,6 @@ interface StackInterface{
      */
     public function isEmpty(): bool;
 
-    public function show(): void;
 }
 
 class Stack implements StackInterface {
@@ -26,7 +25,7 @@ class Stack implements StackInterface {
     /**
      * @var array
      */
-    private $data = array();
+    private $data = [];
 
     public function push($element): void
     {
@@ -35,25 +34,18 @@ class Stack implements StackInterface {
 
     public function pop()
     {
-        if (count($this->data) > 0) {
+        if ($this->isEmpty()) {
             return array_pop($this->data);
         }
+
+        return null;
     }
 
     public function isEmpty(): bool
     {
-        return $this->data == 0;
+        return empty($this->data);
     }
 
-    public function show(): void
-    {
-        echo $this->isEmpty();
-        if(!$this->isEmpty()) {
-            foreach ($this->data as $elem){
-                echo $elem . ' ';
-            }
-        }
-    }
 }
 
 $stack = new Stack();
@@ -68,4 +60,3 @@ $stack->push(21);
 $stack->push(45);
 $stack->pop();
 
-$stack->show();
